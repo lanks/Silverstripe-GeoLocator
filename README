@@ -1,0 +1,23 @@
+To use this you must register for an api key at http://ipinfodb.com/register.php.
+
+Once you have an api key you can add it by putting this line into your _config.php file.
+GeoLocator::set_api_key('your_api_key');
+
+If you are wanting dataobjects to have geolocation data then add this line to your _config.php.
+
+Object::add_extension('dataobjectclassname', 'LocationObject');
+
+
+Example use from inside a 'Controller'
+//Get the IP Address
+$ipaddress = $this->getRequest()->getIP();
+
+//Get the geolocation dataobject for this address
+$location = $this->getGeoLocation($ipaddress);
+
+$obj = new exampleObject();
+
+//NOTE currently the line below here does not work. The dataobject ends up with a "0" as the "LocationID".
+$obj->LocationID = $location->ID;
+
+$obj->write();
